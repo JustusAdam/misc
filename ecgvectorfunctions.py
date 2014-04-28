@@ -1,4 +1,10 @@
-
+'''
+Mathematische Funktionen zur Berechnung einiger typscher Vektoroperationen
+Vektoren sind Listen von numerischen Werten aka. [x,y,z]
+Die meisten Funktionen koennen mit vektoren beliebiger Laenge umgehen.
+Matritzen sind Listen von vektoren (gleicher Laenge) aka [v1,v2,v3].
+Fuer beide sollten auch n-Tupel funktionieren, allerdings ist das nicht getestet.
+'''
 import math
 
 def scalpr(v1,v2=0):
@@ -27,7 +33,8 @@ def betr(vector):
 	return math.sqrt(scalpr(vector))
 
 def scal(skalar,vector):
-	'''gibt skalierten vektor vector mit skalar zurueck
+	'''
+	Gibt skalierten Vektor vector mit skalar zurueck
 	'''
 	c = []
 	for i in range(len(vector)):
@@ -46,16 +53,6 @@ def proj(u,v):
 	'''
 	norm_v = normi(v)
 	return scal(scalpr(u,norm_v),norm_v)
-
-'''def cartpr(a,b):
-	
-	Diese Funktion rechnet das Kreuzprodukt aus fuer 3d Vektoren
-	
-	c = []
-	c.append(a[1]*b[2] - a[2]*b[1])
-	c.append(a[2]*b[0] - a[0]*b[2])
-	c.append(a[0]*b[1] - a[1]*b[0])
-	return c'''
 
 def cartpr(vectors):
 	'''
@@ -117,7 +114,7 @@ def determinant(input_matrix):
 		if matrix_length_x == 1: return input_matrix[0][0]; 
 		return calc_determinant(input_matrix)
 	else:
-		print "Input error, matrix unsuitable"
+		print("Input error, matrix unsuitable")
 		return None
 
 def calc_determinant(input_matrix):
