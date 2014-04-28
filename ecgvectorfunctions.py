@@ -112,19 +112,45 @@ def determinant(input_matrix):
 	'''
 	Gibt die Determinante der Matrix input_matrix zurueck.
 	'''
-	output_matrix = 0
-	if len(input_matrix) > 2:
-		for j in range(len(input_matrix)):
-			if input_matrix[0][j] == 0:
-				continue
-			elif j%2:
-				output_matrix -= input_matrix[j][0] * determinant(inner_matrix(input_matrix,j))
-			else:
-				output_matrix += input_matrix[j][0] * determinant(inner_matrix(input_matrix,j))
-		return output_matrix
+	matrix_length_x = len(input_matrix)
+	if not check_deter_matrix(input_matrix):
+		if matrix_length_x == 1: return input_matrix[0][0]; 
+		return calc_determinant(input_matrix)
 	else:
+		print "Input error, matrix unsuitable"
+		return None
+
+def calc_determinant(input_matrix):
+	'''
+	Pseudo Funktion, wird von determinant() aufgerufen,
+	wenn die notwendigen Sicherheitschecks abgeschlossen sind.
+	'''
+	if len(input_matrix) == 2:
 		return input_matrix[0][0] * input_matrix[1][1] - input_matrix[1][0] * input_matrix[0][1]
 	
+	output_matrix = 0
+	for j in range(len(input_matrix)):
+		if input_matrix[0][j] == 0: #Kuerzt die Berechnung ab, wenn der Faktor 0 ist
+			continue
+		elif j%2:
+			output_matrix -= input_matrix[j][0] * calc_determinant(inner_matrix(input_matrix,j))
+		else:
+			output_matrix += input_matrix[j][0] * calc_determinant(inner_matrix(input_matrix,j))
+	return output_matrix
+
+def check_deter_matrix(input_matrix):
+	'''
+	Sicherheitscheck fuer Determinantenberechnung
+	Returnt 1, wenn die Matrix nicht Quadratisch ist oder leer.
+	'''
+	matrix_length_x = len(input_matrix)
+	if matrix_length_x < 1:
+		return 1
+	for i in [len(column) for column in input_matrix]:
+		if i != matrix_length_x:
+			return 1
+	return 0
+
 def inner_matrix(input_matrix,j,i=0):
 	'''
 	Gibt die n-1te Matrix zurueck , durch entfernen der i. Zeile und j. Spalte
