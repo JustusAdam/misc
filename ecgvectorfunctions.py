@@ -56,7 +56,8 @@ def proj(u,v):
 
 def cartpr(vectors):
 	'''
-	Berechnet das kartesische Produkt fuer beliebig dimensionierte Vektoren
+	Berechnet das kartesische Produkt fuer beliebig dimensionierte Vektoren.
+	Der Input (vectors) ist eine Liste von Vektoren [v1,v2,v3 ...]
 	'''
 	result = []
 	vectors = matrix_rows_to_columns(vectors)
