@@ -21,10 +21,7 @@ def side(a,b):
 	'''
 	Berechne den Vektor zwischen Punkt b und a, ergo b - a
 	'''
-	c = []
-	for i in range(len(a)):
-		c.append(b[i]-a[i])
-	return c
+	return [b[i] - a[i] for i in range(len(a))]
 
 def betr(vector):
 	'''
@@ -36,10 +33,7 @@ def scal(skalar,vector):
 	'''
 	Gibt skalierten Vektor vector mit skalar zurueck
 	'''
-	c = []
-	for i in range(len(vector)):
-		c.append(vector[i] * skalar)
-	return c
+	return [vector[i] * skalar for i in range(len(vector))]
 
 def normi(vector):
 	'''
@@ -59,23 +53,23 @@ def cartpr(vectors):
 	Berechnet das kartesische Produkt fuer beliebig dimensionierte Vektoren.
 	Der Input (vectors) ist eine Liste von Vektoren [v1,v2,v3 ...]
 	'''
-	result = []
 	vectors = matrix_rows_to_columns(vectors)
-	for i in range(len(vectors)):
-		result.append(determinant(vectors[:i] + vectors[i+1:]))
-	return result
+	# for i in range(len(vectors)):
+	# 	result.append(determinant(vectors[:i] + vectors[i+1:]))
+	return [determinant(vectors[:i] + vectors[i+1:]) for i in range(len(vectors))]
 
 def matrix_rows_to_columns(input_matrix):
 	'''
 	Konvertiert ein Array von Spaltenvektoren in das aequivalente Array von Zeilenvektoren
 	und umgekehrt
-	'''
-	output_matrix = []
-	for i in range(len(input_matrix[0])):
-		output_matrix.append([])
-		for p in range(len(input_matrix)):
-			output_matrix[i].append(input_matrix[p][i])
-	return output_matrix
+	# '''
+	# output_matrix = []
+	# for i in range(len(input_matrix[0])):
+	# 	output_matrix.append([])
+	# 	for p in range(len(input_matrix)):
+	# 		output_matrix[i].append(input_matrix[p][i])
+	# return output_matrix
+	return [[input_matrix[p][i] for p in range(len(input_matrix))] for i in range(len(input_matrix[0]))]
 
 def tripr(v1,v2,v3):
 	'''
@@ -152,10 +146,11 @@ def check_deter_matrix(input_matrix):
 def inner_matrix(input_matrix,j,i=0):
 	'''
 	Gibt die n-1te Matrix zurueck , durch entfernen der i. Zeile und j. Spalte
-	'''
-	output_matrix = []
-	for current_column in input_matrix[j+1:] + input_matrix[:j]:
-		output_matrix.append(current_column[i+1:] + current_column[:i])
-	return output_matrix
+	# '''
+	# output_matrix = []
+	# for current_column in input_matrix[j+1:] + input_matrix[:j]:
+	# 	output_matrix.append(current_column[i+1:] + current_column[:i])
+	# return output_matrix
+	return [current_column[i+1:]+ current_column[:i] for current_column in input_matrix[j+1:] + input_matrix[:j]]
 
 
