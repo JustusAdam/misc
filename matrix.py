@@ -22,7 +22,7 @@ create the left and right gaussian matrix
     return {"r_matrix": input_matrix, "l_matrix" : l_matrix}
 
 
-def matrix_rows_to_columns(input_matrix):
+def rows_to_columns(input_matrix):
     """
 Turn matrix row into columns
     :param input_matrix: list of lists of consistent length
@@ -55,4 +55,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main();
+    main()

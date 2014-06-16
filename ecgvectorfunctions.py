@@ -121,22 +121,7 @@ Calculate the cosign of an angle in a triangle a, b, c
 
 def determinant(input_matrix):
     """
-Calculate the determinant to a matrix
-    :param input_matrix: list of lists of consistent length
-    :return: determinant
-    """
-    matrix_length_x = len(input_matrix)
-    if not check_deter_matrix(input_matrix):
-        if matrix_length_x == 1: return input_matrix[0][0];
-        return calc_determinant(input_matrix)
-    else:
-        print("Input error, matrix unsuitable")
-        return None
-
-
-def calc_determinant(input_matrix):
-    """
-function called by determinant() to calculate the value after performing checks to validate the input
+calculate the determinant of a matrix
     :param input_matrix: list of lists of consistent length
     :return: determinant
     """
@@ -145,37 +130,17 @@ function called by determinant() to calculate the value after performing checks 
 
     output_matrix = 0
     for j in range(len(input_matrix)):
-        if input_matrix[0][j] == 0:  # Kuerzt die Berechnung ab, wenn der Faktor 0 ist
+        if input_matrix[j][0] == 0:  # Kuerzt die Berechnung ab, wenn der Faktor 0 ist
             continue
         elif j % 2:
-            output_matrix -= input_matrix[j][0] * calc_determinant(inner_matrix(input_matrix, j))
+            output_matrix -= input_matrix[j][0] * determinant(inner_matrix(input_matrix, j))
         else:
-            output_matrix += input_matrix[j][0] * calc_determinant(inner_matrix(input_matrix, j))
+            output_matrix += input_matrix[j][0] * determinant(inner_matrix(input_matrix, j))
     return output_matrix
-
-
-def check_deter_matrix(input_matrix):
-    '''
-    Sicherheitscheck fuer Determinantenberechnung
-    Returnt 1, wenn die Matrix nicht Quadratisch ist oder leer.
-    '''
-    matrix_length_x = len(input_matrix)
-    if matrix_length_x < 1:
-        return 1
-    for i in [len(column) for column in input_matrix]:
-        if i != matrix_length_x:
-            return 1
-    return 0
 
 
 def inner_matrix(input_matrix, j, i=0):
     '''
     Gibt die n-1te Matrix zurueck , durch entfernen der i. Zeile und j. Spalte
     '''
-    # output_matrix = []
-    # for current_column in input_matrix[j+1:] + input_matrix[:j]:
-    # output_matrix.append(current_column[i+1:] + current_column[:i])
-    # return output_matrix
     return [current_column[i + 1:] + current_column[:i] for current_column in input_matrix[j + 1:] + input_matrix[:j]]
-
-
