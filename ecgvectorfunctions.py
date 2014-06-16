@@ -146,7 +146,7 @@ def check_deter_matrix(input_matrix):
 def inner_matrix(input_matrix,j,i=0):
 	'''
 	Gibt die n-1te Matrix zurueck , durch entfernen der i. Zeile und j. Spalte
-	# '''
+	'''
 	# output_matrix = []
 	# for current_column in input_matrix[j+1:] + input_matrix[:j]:
 	# 	output_matrix.append(current_column[i+1:] + current_column[:i])
