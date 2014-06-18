@@ -10,15 +10,20 @@ create the left and right gaussian matrix
     :return: dictionary with the keys "l_matrix" and "r_matrix" and the matrices (list of rows) as values
     """
     l_matrix = create_standard(len(input_matrix))
+
     for i in range(len(input_matrix)):
+
         divisor = float(1) / input_matrix[i][i]
         input_matrix[i] = [divisor * j for j in input_matrix[i]]
         l_matrix[i][i] *= divisor
+
         for remaining_rows in range(i + 1, len(input_matrix)):
             scalar = float(input_matrix[remaining_rows][i]) / input_matrix[i][i]
             input_matrix[remaining_rows] = \
                 vector.subtract(input_matrix[remaining_rows], vector.scale(scalar, input_matrix[i]))
+
             l_matrix[remaining_rows][i] -= scalar
+
     return {"r_matrix": input_matrix, "l_matrix" : l_matrix}
 
 

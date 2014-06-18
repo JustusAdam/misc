@@ -8,7 +8,7 @@ def step(points, t):
     """
 Implementation of a single step of the de Casteljau algorithm
     :param points: list of n-dimensional points
-    :param t: de-Casteljau scaling parameter
+    :param t: de-Casteljau scaling parameter, numerical value
     :return: the next set of points
     """
     return [vector.add(scal(1 - t, points[i]), scal(t, points[i + 1])) for i in range(len(points) - 1)]
@@ -23,7 +23,6 @@ Implementation of the full de Casteljau algorithm
     """
     for i in range(len(points) - 1):
         points = step(points, t)
-        print(points)
     return points
 
 
