@@ -16,32 +16,27 @@ def cols(matrix, end, start=0):
 
 
 class Gauss:
-    _matrix = None
-
-    l_matrix = None
-    r_matrix = None
-
-    inversion_remainder = None
-    inverted = None
 
     def __init__(self, matrix=None):
+        self._matrix = matrix
+        self._l_matrix = None
+        self._r_matrix = None
+
+        self.inversion_remainder = None
+        self.inverted = None
+
         if matrix:
-            self._matrix = matrix
             self.create_lr_matrix()
             self.invert_lr_matrices()
 
-    def matrix(self, matrix):
-        self._matrix = matrix
-        self.create_lr_matrix()
-        self.invert_lr_matrices()
+    @property
+    def matrix(self):
+        return self._matrix
 
-    def lr_matrix(self, matrix):
-        self._matrix = matrix
+    @matrix.setter
+    def matrix(self, value):
+        self._matrix = value
         self.create_lr_matrix()
-
-    def lr_set_matrices(self, r_matrix, l_matrix):
-        self.l_matrix = l_matrix
-        self.r_matrix = r_matrix
         self.invert_lr_matrices()
 
     def create_lr_matrix(self):
@@ -66,8 +61,8 @@ class Gauss:
 
                 l_matrix[remaining_rows][i] -= scalar
 
-        self.l_matrix = l_matrix
-        self.r_matrix = input_matrix
+        self._l_matrix = l_matrix
+        self._r_matrix = input_matrix
 
     def invert_lr_matrices(self):
         """
@@ -75,11 +70,11 @@ class Gauss:
         :param l_matrix: list of lists of numerical values
         :param r_matrix: list of lists of numerical values
         """
-        if not self.l_matrix or not self.r_matrix:
+        if not self._l_matrix or not self._r_matrix:
             self.create_lr_matrix()
 
-        r_matrix = self.r_matrix
-        l_matrix = self.l_matrix
+        r_matrix = self._r_matrix
+        l_matrix = self._l_matrix
 
         for i in range(len(r_matrix) - 1, -1, -1):
             print(i)
