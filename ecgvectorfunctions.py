@@ -83,7 +83,7 @@ Calculate the triple product of three vectors
     :param v3: vector 3
     :return: product
     """
-    return scalpr(v1, cartpr(v2, v3))
+    return scalpr(v1, cartpr((v2, v3)))
 
 
 def tetrvol(v1, v2, v3):
