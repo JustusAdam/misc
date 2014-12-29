@@ -1,3 +1,10 @@
+"""
+Command line tool and library for counting non-empty lines in text files.
+
+If invoked with a directory name, will recursively scan subdirectories and scan all files contained within.
+"""
+
+
 import pathlib
 import re
 
@@ -47,7 +54,7 @@ def count_with_highest(directory, recursive=True, fileendings={'.py'}, skip=set(
 
     def check_skipped(file):
         for skipped in skip:
-            if skipped in str(file.resolve()):
+            if skipped in str(file):
                 return False
         else:
             return True
