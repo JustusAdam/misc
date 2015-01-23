@@ -8,7 +8,9 @@ If invoked with a directory name, will recursively scan subdirectories and scan 
 import pathlib
 import re
 
-__author__ = 'justusadam'
+
+__author__ = 'Justus Adam'
+__version__ = '0.1'
 
 
 empty_line = re.compile('^\s*$')
@@ -17,7 +19,7 @@ empty_line = re.compile('^\s*$')
 def count_lines(lines):
     line_count = 0
     for line in lines:
-        if not re.fullmatch(empty_line, line):
+        if not re.match(empty_line, line):
             line_count += 1
     return line_count
 
@@ -102,9 +104,25 @@ if __name__ == '__main__':
     fileendings = set(args.fileendings.split(','))
     skip_dir = set(args.skip_dir.split(',')) if args.skip_dir else set()
 
-    print('showing lines for files ending with', fileendings)
-    count, highest, filecount, dir_count = count_with_highest(args.scanpath, args.recursive, fileendings, skip_dir)
-    print('accumulative count', count, 'lines in', filecount, 'files in', dir_count, 'directories')
-    print()
-    print('most lines in single file', highest[0])
-    print('found in file', highest[1])
+    s = """
+showing lines for files ending with {fileendings}
+
+accumulative count:
+{lines} non-empty lines
+in {files} files
+in {directories} directories
+
+most lines in single file: {highest}
+found in file {largest_file}
+"""
+    count, highest, filecount, dir_count = count_with_highest(
+        args.scanpath, args.recursive, fileendings, skip_dir)
+
+    print(s.format(
+        fileendings=fileendings,
+        lines=count,
+        files=filecount,
+        directories=dir_count,
+        highest=highest[0],
+        largest_file=highest[1])
+        )
