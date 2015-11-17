@@ -1,0 +1,101 @@
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<form method="post" action="">
+
+  <fieldset>
+    <legend>Zur Person</legend>
+    <p>
+      <label for="anrede-input">Anrede: </label>
+      <select id="anrede-input" name="Anrede">
+        <option value="herr">Herr</option>
+        <option value="frau">Frau</option>
+        <option value="dr">Dr.</option>
+      </select>
+    </p>
+
+    <p>
+      <label for="name-input">Name</label>
+      <input id="name-input" name="Name" type="text"></input>
+    </p>
+
+    <p>
+      <label for="vorname-input">Vorname</label>
+      <input id="vorname-input" name="Vorname" type="text"></input>
+    </p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Anschrift</legend>
+    <p>
+      <label for="postleitzahl-input">Postleitzahl</label>
+      <input id="postleitzahl-input" name="Postleitzahl" type="text" size="5"></input>
+    </p>
+
+    <p>
+      <label for="ort-input">Ort</label>
+      <input list="orte" name="Ort" />
+
+      <datalist id="orte">
+        <option value="Dresden" />
+        <option value="Frankfurt" />
+        <option value="München" />
+      </datalist>
+    </p>
+
+    <p>
+      <label for="strasse-input">Straße und Hausnummer</label>
+      <input name="Strasse" type="text" /><input type="number" name="Hausnummer" />
+    </p>
+
+    <p>
+
+      <input id="mail-input" name="Per-Mail" type="checkbox" checked />
+      <label for="mail-input">Per Mail</label>
+
+      <input id="post-input" name="Per-Post" type="checkbox" checked />
+      <label for="post-input">Per Post</label>
+    </p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Pizza!!!</legend>
+    <p>
+      <label for="pizza-input">Pizza:</label>
+      <select>
+        <optgroup label="Mit Fleisch">
+          <option value="Conchita">Conchita</option>
+          <option value="Wurst">Wurst</option>
+        </optgroup>
+        <optgroup label="Vegetarisch">
+          <option value="Magerita">Magerita</option>
+          <option value="Ohnewurst">Ohnewurst</option>
+        </optgroup>
+      </select>
+    </p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Bezahlmethode</legend>
+
+    <p>
+      <input  type="radio" name="Bezahlmethode" value="Kreditkarte"><label for="kreditkarte-input">Kreditkarte</label>
+      <input  type="radio" name="Bezahlmethode" value="Bar"><label for="bar-input">Bar</label>
+    </p>
+  </fieldset>
+
+  <p>
+    <progress value="0.7"></progress>
+  </p>
+
+  <p>
+    <output name="Preis">1.000.000</output>
+  </p>
+
+  <input type="submit" value="Submit" />
+  <input type="reset" value="Reset" />
+</form>
+</body>
+</html>
