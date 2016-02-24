@@ -1,22 +1,18 @@
-{-# LANGUAGE LambdaCase #-}
 module SizeDir where
 
 
 import System.Environment (getArgs)
 import Text.Printf (printf)
-import Control.Monad (unless, (>=>))
+import Control.Monad (unless)
 import System.Directory
 import Data.Maybe (catMaybes)
-import Control.Category ((>>>))
 import System.Posix.Files
 import Data.Traversable (for)
-import Data.List (partition)
-import Control.Arrow ((***))
 import System.FilePath
 
 
 getFileSize :: FilePath -> IO Integer
-getFileSize = fmap (fileSize >>> toInteger) . getFileStatus
+getFileSize = fmap (toInteger . fileSize) . getFileStatus
 
 
 sizedir :: FilePath -> IO (Maybe Integer)
@@ -60,13 +56,13 @@ main = do
         msize <- sizedir dir
 
         case msize of
-            Nothing -> do
+            Nothing ->
                 printf "Directory %s does not exist" (show dir)
             Just size ->
                 printf tableCell dir size
 
         return msize
 
-    unless (length sizes < 1) $ do
+    unless (length sizes < 2) $ do
         putStrLn verticalSpacer
         printf tableCell "total" $ sum $ catMaybes sizes
