@@ -1,4 +1,6 @@
 {-# LANGUAGE DisambiguateRecordFields #-}
+module AmbiguousRecords where
+
 
 import TestRecord
 
