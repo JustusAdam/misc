@@ -16,10 +16,7 @@ import System.FilePath
 
 
 getFileSize :: FilePath -> IO Integer
-getFileSize = getFileStatus
-    >=> fileSize
-    >>> toInteger
-    >>> return
+getFileSize = fmap (fileSize >>> toInteger) . getFileStatus
 
 
 sizedir :: FilePath -> IO (Maybe Integer)
@@ -31,20 +28,26 @@ sizedir dir = do
 
 
 uncheckedSizedir :: FilePath -> IO Integer
-uncheckedSizedir dir = do
-    nodes <- fmap (fmap (dir </>) . filter (`notElem` [".", ".."])) $ getDirectoryContents dir
-    areFiles <- mapM doesFileExist nodes
-    let (files, directories) = (map fst *** map fst) $ partition snd $ zip nodes areFiles
-    filesizes <- fmap sum $ mapM getFileSize files
-    dirsizes <- fmap sum $ mapM uncheckedSizedir directories
-    ownSize <- getFileSize dir
-    return $ filesizes + dirsizes + ownSize
+uncheckedSizedir path = do
+    isFile <- doesFileExist path
+    if isFile
+        then getOwnSize
+        else do
+            ownSize <- getOwnSize
+            files <- fmap (fmap (path </>) . filter (`notElem` [".", ".."])) $ getDirectoryContents path
+            fmap ((+ ownSize) . sum) $ mapM uncheckedSizedir files
+    where getOwnSize = getFileSize path
 
 
-
+tableCell :: String
 tableCell = "%-40s | %-15v\n"
+
+
+verticalSpacer :: String
 verticalSpacer = replicate 60 '-'
 
+
+main :: IO ()
 main = do
     args <- getArgs
 
