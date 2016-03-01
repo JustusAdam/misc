@@ -2,7 +2,7 @@ module SizeDir where
 
 
 import System.Environment (getArgs)
-import Text.Printf (printf)
+import Text.Printf (printf, PrintfArg)
 import Control.Monad (unless)
 import System.Directory
 import Data.Maybe (catMaybes)
@@ -23,24 +23,34 @@ sizedir dir = do
         else return Nothing
 
 
+listDirectoryContents :: FilePath -> IO [FilePath]
+listDirectoryContents path = filter ((&&) <$> (/= ".") <*> (/= "..")) <$> getDirectoryContents path
+
+
 uncheckedSizedir :: FilePath -> IO Integer
 uncheckedSizedir path = do
     isFile <- doesFileExist path
     if isFile
         then getOwnSize
         else do
-            ownSize <- getOwnSize
-            files <- fmap (fmap (path </>) . filter (`notElem` [".", ".."])) $ getDirectoryContents path
-            fmap ((+ ownSize) . sum) $ mapM uncheckedSizedir files
+            files <- map (path </>) <$> listDirectoryContents path
+            ((+) . sum) <$> mapM uncheckedSizedir files <*> getOwnSize
     where getOwnSize = getFileSize path
 
 
 tableCell :: String
-tableCell = "%-40s | %-15v\n"
+tableCell = "| %-40s | %-15v |\n"
 
 
 verticalSpacer :: String
-verticalSpacer = replicate 60 '-'
+verticalSpacer = "|" ++ replicate 42 '-' ++ "|" ++ replicate 17 '-' ++ "|"
+
+
+putCell :: PrintfArg a => String -> a -> IO ()
+putCell s = printf tableCell (take 40 s)
+
+
+putSpacer = putStrLn verticalSpacer
 
 
 main :: IO ()
@@ -49,20 +59,22 @@ main = do
 
     let dirs = if null args then ["."] else args
 
-    printf tableCell "directory" "size"
-    putStrLn verticalSpacer
+    putSpacer
+    putCell "directory" "size"
+    putSpacer
 
     sizes <- for dirs $ \dir -> do
         msize <- sizedir dir
 
-        case msize of
-            Nothing ->
-                printf "Directory %s does not exist" (show dir)
-            Just size ->
-                printf tableCell dir size
+        maybe
+            (printf "Directory %s does not exist" (show dir))
+            (putCell dir)
+            msize
 
         return msize
 
     unless (length sizes < 2) $ do
-        putStrLn verticalSpacer
-        printf tableCell "total" $ sum $ catMaybes sizes
+        putSpacer
+        putCell "total" $ sum $ catMaybes sizes
+
+    putSpacer
