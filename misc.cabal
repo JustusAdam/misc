@@ -18,22 +18,9 @@ cabal-version:       >=1.10
 
 library
   exposed-modules:
-      AmbiguousRecords
-    , Bestellung
-    , Checkconn
-    , DoPrinter
+      Bestellung
     , Email
-    , Existentials
-    , Filters
-    , FoldM
-    , Functions
-    , If
-    , Implicit
-    , ITE
     , Jaccard
-    , Levenstein
-    , StdDeriv
-    , TestRecord
     , Tree
     , Trigrams
     , Viterby
@@ -51,7 +38,6 @@ library
     , UnicodeSyntax
     , ImplicitParams
     , MultiWayIf
-    , Pad
   build-depends:
       base >=4.7 && <5
     , process
@@ -63,5 +49,32 @@ library
     , wreq
     , bytestring
     , http-types
+    , lens
   hs-source-dirs: src/haskell
   default-language:    Haskell2010
+
+
+-- executable laja
+--   hs-source-dirs: src/haskell
+--   main-is: LispAsJavaAlternative.hs
+--   build-depends: base, classy-prelude, containers
+--   default-language: Haskell2010
+
+
+executable checkconn
+  main-is: Checkconn.hs
+  hs-source-dirs: src/haskell
+  build-depends:
+      base >=4.7 && <5
+    , process
+    , lens
+    , async
+    , text
+    , containers
+    , safe
+    , wreq
+    , bytestring
+    , http-types
+    , lens
+    , misc
+  default-language: Haskell2010

@@ -15,12 +15,13 @@ nodes =
     [ ("localhost", "Computer internal networking",  "Your computer does not exist.")
     , ("192.168.0.1", "Router reachability", "The router may be offline.")
     , ("141.30.202.1", "Wundtstraße switch",
-    "Your buildings internet may be offline.")
+    "Your buildings internet may be offline or your router is refusing to connect.")
     , ("141.30.228.39", "Primary Wundtstraße DNS","DNS server down.")
     , ("141.30.228.4", "Secondary Wundtstraße DNS", "Second DNS server down.")
     , ("wh2.tu-dresden.de", "WH2 DNS resolving", "DNS resolving is down.")
     , ("141.30.235.81", "Weberplatz connection", "The Research network is down.")
-    , ("8.8.8.8", "Google\"s DNS", "ALL THE INTERNET IS GONE FOREVER.")
+    , ("81.91.164.5", "DENIC DNS Server", "The research network has lost its outside connections." )
+    , ("8.8.8.8", "Google\'s DNS", "ALL THE INTERNET IS GONE FOREVER.")
     , ("google.com", "Google.com website", "Big internet DNS resolving does not work")
     ]
 
@@ -52,4 +53,4 @@ main = do
     case find (not . (^. _1)) results of
         Nothing -> putStrLn "All checks positive! No problems found"
         Just (_, target, message) ->
-            printf "Failed when trying to reach %s, likely problem: %s" target message
+            printf "Failed when trying to reach %s, likely problem: %s\n" target message

@@ -25,7 +25,7 @@ ping url timeout = loop 0
                     let status = resp ^. responseStatus in
                     printf "Recieved response, but unexpected staus %u : %s" (status ^. statusCode) (show $ status ^. statusMessage)
                 Left err -> do
-                    printf "Request failed for seq %u with error \"%s\"" seq (show $ (err :: SomeException))
+                    printf "Request failed for seq %u with error \"%s\"" seq (show (err :: SomeException))
                     threadDelay (timeout * 1000000)
                     loop $ succ seq
 
