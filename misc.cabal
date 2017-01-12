@@ -75,6 +75,22 @@ executable checkconn
     , wreq
     , bytestring
     , http-types
-    , lens
     , misc
   default-language: Haskell2010
+
+executable hpub
+  main-is: HPub.hs
+  hs-source-dirs: src/haskell
+  build-depends: 
+      base >=4.7 && <5
+    , process
+    , Cabal
+    , classy-prelude
+    , directory
+    , aeson
+    , bytestring
+    , text
+  default-language: Haskell2010
+  default-extensions:
+      NoImplicitPrelude
+    
