@@ -24,6 +24,7 @@ library
     , Tree
     , Trigrams
     , Viterby
+    , FCA
   -- other-modules:
   other-extensions:
       DisambiguateRecordFields
@@ -49,7 +50,10 @@ library
     , wreq
     , bytestring
     , http-types
+    , classy-prelude
     , lens
+    , hspec
+    , tagged
   hs-source-dirs: src/haskell
   default-language:    Haskell2010
 

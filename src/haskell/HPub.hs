@@ -59,7 +59,7 @@ main = do
                         case out of 
                             "" -> return ()
                             content -> do
-                                putStrLn "You seem to have uncomitted changes"
+                                putStrLn "You seem to have uncommited changes"
                                 putStrLn ""
                                 P.putStrLn content
                                 putStrLn "Would you like to Create a commit, continue Without a commit or Abort the upload? [cwA]"
