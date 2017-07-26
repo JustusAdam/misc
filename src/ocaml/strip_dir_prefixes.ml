@@ -10,7 +10,7 @@ let strip_prefix prefix dir =
     else
         let lp = String.length prefix in
         let start = String.sub dir 0 lp in
-        if start == prefix 
+        if start = prefix 
             then Some (String.sub dir lp (String.length dir)) 
             else None;;
 
