@@ -3,3 +3,10 @@
 __pycache__/
 .DS_Store
 .stack-work/
+*.cmo
+*.cmo
+*.out
+*.dump-simpl
+*.hi
+*.o
+*.cmi

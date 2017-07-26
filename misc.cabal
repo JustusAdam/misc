@@ -85,7 +85,7 @@ executable checkconn
 executable hpub
   main-is: HPub.hs
   hs-source-dirs: src/haskell
-  build-depends: 
+  build-depends:
       base >=4.7 && <5
     , process
     , Cabal
@@ -97,4 +97,18 @@ executable hpub
   default-language: Haskell2010
   default-extensions:
       NoImplicitPrelude
-    
+
+executable wallpapers
+  main-is: Wallpapers.hs
+  hs-source-dirs: src/haskell
+
+  build-depends: base < 5
+               , conduit
+               , conduit-extra
+               , http-conduit
+               , filepath
+               , bytestring
+               , directory
+               , xml-conduit
+               , html-conduit
+  default-language: Haskell2010
