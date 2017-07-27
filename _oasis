@@ -1,0 +1,11 @@
+OASISFormat: 0.4
+Name:        misc
+Version:     0.0.1
+Synopsis:    Misc programming snippets
+Authors:     Justus Adam
+License:     BSD-3-clause
+Library misc
+  Path:       src/ocaml
+  BuildTools: ocamlbuild
+  Modules: Array_slice
+

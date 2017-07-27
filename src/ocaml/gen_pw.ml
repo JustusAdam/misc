@@ -1,8 +1,3 @@
-open Array;;
-open List;;
-open Sys;;
-open Random;;
-
 let chars =
   [| 'a'; 'b'; 'c'; 'd'; 'e'
   ; 'f'; 'g'; 'h'; 'i'; 'j'
@@ -41,7 +36,7 @@ let rec gen_pw length =
   
 let main () =
   Random.self_init ();
-  let length = int_of_string argv.(1) in
+  let length = int_of_string Sys.argv.(1) in
   print_endline @@ gen_pw length;;
 
 main ();;
